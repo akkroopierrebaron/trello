@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Trello for Akkro</title>
+	<link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+	<script src="/assets/js/foundation.js"></script>
+	<script src="/assets/js/templates.js"></script>
+	<script src="/assets/js/routes.js"></script>
+	<script src="/assets/js/app.js"></script>
+</head>
+<body>
+<div class="grid-frame vertical">
+	<div class="grid-content shrink" style="padding: 0;">
+		<ul class="primary condense menu-bar">
+			<li><a><strong>Foundation for Apps</strong></a></li>
+		</ul>
+	</div>
+	<div ui-view class="grid-content">
+	</div>
+</div>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
+
+</body>
+</html>
