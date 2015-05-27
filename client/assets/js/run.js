@@ -11,9 +11,19 @@
 		activate();
 		$rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
 		function activate() {
-			console.log("run");
-
 			FastClick.attach(document.body);
+			Trello.authorize({
+				interactive: false,
+				success: onAuthorize
+			});
+
+			function onAuthorize() {
+				Trello.members.get("me", function(member) {
+					$rootScope.$apply(function() {
+						$rootScope.member = member;
+					});
+				});
+			}
 		}
 
 		function stateChangeSuccess(event, toState, toParams, fromState, fromParams) {

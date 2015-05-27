@@ -5,6 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Trello for Akkro</title>
 	<link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
+
+	<script src="/assets/js/vendors.js"></script>
 	<script src="/assets/js/foundation.js"></script>
 	<script src="/assets/js/templates.js"></script>
 	<script src="/assets/js/routes.js"></script>
@@ -12,16 +17,16 @@
 </head>
 <body>
 <div class="grid-frame vertical">
-	<div class="grid-content shrink" style="padding: 0;">
-		<ul class="primary condense menu-bar">
-			<li><a><strong>Foundation for Apps</strong></a></li>
-		</ul>
+	<div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
+		<div class="title-bar">
+			<span class="title center">Trello for Akkroo</span>
+			<span class="right">{{member.fullName}} <a ng-show="member.fullName"
+													   ng-click="menu.logout()">Logout</a></span>
+
+		</div>
 	</div>
 	<div ui-view class="grid-content">
 	</div>
 </div>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
-
 </body>
 </html>
