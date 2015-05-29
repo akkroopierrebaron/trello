@@ -39,6 +39,12 @@ controller: CardCtrl
 			Expected
 			<textarea placeholder="I should have been redirected." ng-model="card.expected"></textarea>
 		</label>
+
+		<label>
+			Labels
+			<select ng-model="card.idLabels"
+					ng-options="label.id as label.name for label in form.labels" multiple></select>
+		</label>
 		<input type="submit" class="button success" value="submit" ng-disabled="cardForm.$invalid || loading"
 			   ng-click="submitCard()"/>
 	</form>

@@ -8,7 +8,8 @@
 		//foundation
 		'foundation',
 		'foundation.dynamicRouting',
-		'foundation.dynamicRouting.animations'
+		'foundation.dynamicRouting.animations',
+		'config'
 	])
 		.config(config);
 
@@ -28,7 +29,8 @@
 			type: "popup",
 			name: "Trello for Akkroo",
 			persist: true,
-			interactive: true
+			interactive: true,
+			scope: {write: true, read: true}
 		});
 	}
 })();

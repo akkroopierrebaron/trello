@@ -13,6 +13,8 @@ var gulp = require('gulp');
 var rimraf = require('rimraf');
 var router = require('front-router');
 var sequence = require('run-sequence');
+var ngConstant = require('gulp-ng-constant');
+var gutil = require('gulp-util');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -45,12 +47,19 @@ var paths = {
 		'!bower_components/foundation-apps/js/angular/app.js'
 	],
 	vendorJS: [
+		'bower_components/jquery/dist/jquery.min.js',
 		'bower_components/sugar/release/sugar.min.js'
 	],
 	// These files are for your app's JavaScript
 	appJS: [
+		'client/assets/js/constants.js',
 		'client/assets/js/app.js',
 		'client/assets/js/run.js',
+		'client/assets/js/services/api.js',
+		'client/assets/js/services/api.boards.js',
+		'client/assets/js/services/api.cards.js',
+		'client/assets/js/services/api.labels.js',
+		'client/assets/js/services/api.lists.js',
 		'client/assets/js/services/trello.js',
 		'client/assets/js/controllers/home.js',
 		'client/assets/js/controllers/login.js',
@@ -162,6 +171,22 @@ gulp.task('uglify:app', function() {
 		.pipe(gulp.dest('./build/assets/js/'));
 });
 
+
+gulp.task('config', function() {
+	var myConfig = require('./constants.json');
+	var env = 'production';
+	if (gutil.env.dev == true) {
+		env = 'dev';
+	}
+	var envConfig = myConfig[env];
+	return ngConstant({
+		name: 'config',
+		constants: {'ENV': envConfig},
+		stream: true
+	})
+		.pipe(gulp.dest('./client/assets/js/'));
+});
+
 // Starts a test server, which you can view at http://localhost:8080
 gulp.task('server', ['build'], function() {
 	gulp.src('./build')
@@ -177,7 +202,7 @@ gulp.task('server', ['build'], function() {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function(cb) {
-	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', cb);
+	sequence('clean', ['copy', 'copy:foundation', 'sass', 'config', 'uglify'], 'copy:templates', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

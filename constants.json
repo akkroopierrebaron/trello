@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "board": "AkkrooTrello",
+    "lists": {
+      "feature": "Todo",
+      "bugs": "Known issues"
+    },
+    "labels": {
+      "feature": "Feature",
+      "bug": "Bug",
+      "reproduced": "Reproduced"
+    }
+  },
+  "production": {
+    "board": "Development",
+    "lists": {
+      "feature": "",
+      "bugs": "Known Issues"
+    },
+    "labels": {
+      "feature": "",
+      "bug": "",
+      "reproduced": ""
+    }
+  }
+}
