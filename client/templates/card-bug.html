@@ -44,8 +44,17 @@ controller: CardCtrl
 			Labels
 			<select ng-model="card.idLabels"
 					ng-options="label.id as label.name for label in form.labels" multiple></select>
+
+			<ui-select multiple ng-model="card.idLabels" theme="selectize">
+				<ui-select-match placeholder="Select label...">{{$item.name}}</ui-select-match>
+				<ui-select-choices repeat="label.id as label in form.labels | filter: $select.search">
+					<div ng-bind-html="label.name | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select>
+
+			<pre>{{card.idLabels}}</pre>
 		</label>
-		<input type="submit" class="button success" value="submit" ng-disabled="cardForm.$invalid || loading"
+		<input type="submit" class="button success" value="submit"
 			   ng-click="submitCard()"/>
 	</form>
 </div>

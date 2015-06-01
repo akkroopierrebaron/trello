@@ -31,7 +31,10 @@ var paths = {
 	// Sass will check these folders for files when you use @import.
 	sass: [
 		'client/assets/scss',
-		'bower_components/foundation-apps/scss'
+		'bower_components/foundation-apps/scss',
+	],
+	vendorCSS: [
+		'bower_components/angular-ui-select/dist/select.min.css'
 	],
 	// These files include Foundation for Apps and its dependencies
 	foundationJS: [
@@ -40,6 +43,7 @@ var paths = {
 		'bower_components/tether/tether.js',
 		'bower_components/hammerjs/hammer.js',
 		'bower_components/angular/angular.js',
+		'bower_components/angular-sanitize/angular-sanitize.js',
 		'bower_components/angular-animate/angular-animate.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.js',
 		'bower_components/foundation-apps/js/vendor/**/*.js',
@@ -48,7 +52,8 @@ var paths = {
 	],
 	vendorJS: [
 		'bower_components/jquery/dist/jquery.min.js',
-		'bower_components/sugar/release/sugar.min.js'
+		'bower_components/sugar/release/sugar.min.js',
+		'bower_components/angular-ui-select/dist/select.min.js'
 	],
 	// These files are for your app's JavaScript
 	appJS: [
@@ -132,7 +137,7 @@ gulp.task('sass', function() {
 });
 
 // Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
-gulp.task('uglify', ['uglify:foundation', 'uglify:vendors', 'uglify:app']);
+gulp.task('uglify', ['uglify:foundation', 'uglify:vendorsCss', 'uglify:vendorsJs', 'uglify:app']);
 
 gulp.task('uglify:foundation', function(cb) {
 	var uglify = $.if(isProduction, $.uglify()
@@ -147,7 +152,19 @@ gulp.task('uglify:foundation', function(cb) {
 });
 
 
-gulp.task('uglify:vendors', function(cb) {
+gulp.task('uglify:vendorsCss', function(cb) {
+	var uglify = $.if(isProduction, $.uglify()
+		.on('error', function(e) {
+			console.log(e);
+		}));
+
+	return gulp.src(paths.vendorCSS)
+		.pipe(uglify)
+		.pipe($.concat('vendors.css'))
+		.pipe(gulp.dest('./build/assets/css/'));
+});
+
+gulp.task('uglify:vendorsJs', function(cb) {
 	var uglify = $.if(isProduction, $.uglify()
 		.on('error', function(e) {
 			console.log(e);

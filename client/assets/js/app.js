@@ -4,12 +4,15 @@
 	angular.module('application', [
 		'ui.router',
 		'ngAnimate',
+		'ngSanitize',
 
 		//foundation
 		'foundation',
 		'foundation.dynamicRouting',
 		'foundation.dynamicRouting.animations',
-		'config'
+
+		'config',
+		'ui.select'
 	])
 		.config(config);
 
