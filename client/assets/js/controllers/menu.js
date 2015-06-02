@@ -1,27 +1,26 @@
-(function() {
-	"use strict";
+(function () {
+    "use strict";
 
-	angular.module('application')
-		.controller('MenuCtrl', MenuCtrl);
+    angular.module('application')
+        .controller('MenuCtrl', MenuCtrl);
 
-	MenuCtrl.$inject = ['$scope', '$state'];
-	function MenuCtrl($scope, $state) {
-		var vm = this;
+    MenuCtrl.$inject = ['$scope', '$state'];
+    function MenuCtrl($scope, $state) {
+        var vm = this;
 
-		activate();
-		vm.logout = logout;
+        activate();
+        vm.logout = logout;
 
-		function activate() {
-			$scope.$on('login', function(event, member) {
-				console.log("member", member);
-				vm.member = member;
-			});
-		}
+        function activate() {
+            $scope.$on('login', function (event, member) {
+                vm.member = member;
+            });
+        }
 
-		function logout() {
-			Trello.deauthorize();
-			//vm.member = {};
-			//$state.go("login");
-		}
-	}
+        function logout() {
+            Trello.deauthorize();
+            vm.member = {};
+            $state.go("login");
+        }
+    }
 })();

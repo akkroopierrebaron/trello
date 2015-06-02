@@ -1,32 +1,32 @@
-(function() {
-	"use strict";
+(function () {
+    "use strict";
 
-	angular.module('application')
-		.service('ApiCards', ApiCards);
+    angular.module('application')
+        .service('ApiCards', ApiCards);
 
-	ApiCards.$inject = ['$q'];
-	function ApiCards($q) {
+    ApiCards.$inject = ['$q'];
+    function ApiCards($q) {
 
-		var service = {
-			postCard: postCard
-		};
-		return service;
+        var service = {
+            postCard : postCard
+        };
+        return service;
 
-		function postCard(args) {
-			var deferred = $q.defer();
+        function postCard(args) {
+            var deferred = $q.defer();
 
-			Trello.post("/cards", args, successCallback, errorCallback);
+            Trello.post("/cards", args, successCallback, errorCallback);
 
-			return deferred.promise;
+            return deferred.promise;
 
 
-			function successCallback(result) {
-				deferred.resolve(result);
-			}
+            function successCallback(result) {
+                deferred.resolve(result);
+            }
 
-			function errorCallback(error) {
-				deferred.reject(error);
-			}
-		}
-	}
+            function errorCallback(error) {
+                deferred.reject(error);
+            }
+        }
+    }
 })();
