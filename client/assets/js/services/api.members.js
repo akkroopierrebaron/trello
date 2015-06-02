@@ -21,17 +21,17 @@
                 });
         }
 
-        function getMultipleMembers(membersNickname) {
+        function getMultipleMembers(membersUsername) {
             return getAllMembers()
                 .then(function (members) {
-                    return Api.getMultipleElements(members, membersNickname, 'nickname');
+                    return Api.getMultipleElements(members, membersUsername, 'username');
                 });
         }
 
-        function getMember(memberNickname) {
+        function getMember(memberUsername) {
             return getAllMembers()
                 .then(function (members) {
-                    return Api.getSingleElement(members, memberNickname, 'nickname');
+                    return Api.getSingleElement(members, memberUsername, 'username');
                 });
         }
     }

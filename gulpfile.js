@@ -53,7 +53,9 @@ var paths = {
     vendorJS     : [
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/sugar/release/sugar.min.js',
-        'bower_components/angular-ui-select/dist/select.min.js'
+        'bower_components/angular-ui-select/dist/select.min.js',
+        'bower_components/showdown/compressed/showdown.min.js',
+        'bower_components/angular-markdown-directive/markdown.js'
     ],
     // These files are for your app's JavaScript
     appJS        : [
@@ -194,7 +196,7 @@ gulp.task('uglify:app', function () {
 gulp.task('config', function () {
     var myConfig = require('./constants.json');
     var env = 'production';
-    if (gutil.env.dev == true) {
+    if (gutil.env.dev === true) {
         env = 'dev';
     }
     var envConfig = myConfig[env];

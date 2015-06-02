@@ -1,34 +1,39 @@
 <!doctype html>
 <html lang="en" ng-app="application">
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Trello for Akkro</title>
-	<link href="/assets/css/app.css" rel="stylesheet" type="text/css">
-	<link href="/assets/css/vendors.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trello for Akkro</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+    <link href="/assets/css/vendors.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="/assets/js/foundation.js"></script>
+    <script src="/assets/js/templates.js"></script>
+    <script src="/assets/js/routes.js"></script>
 
-	<script src="/assets/js/foundation.js"></script>
-	<script src="/assets/js/templates.js"></script>
-	<script src="/assets/js/routes.js"></script>
+    <script src="/assets/js/vendors.js"></script>
 
-	<script src="/assets/js/vendors.js"></script>
-	<script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
+    <script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
 
-	<script src="/assets/js/app.js"></script>
+    <script src="/assets/js/app.js"></script>
 </head>
 <body>
 <div class="grid-frame vertical">
-	<div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
-		<div class="title-bar">
-			<span class="title center">Trello for Akkroo</span>
-			<span class="right">{{member.fullName}} <a ng-show="member.fullName"
-													   ng-click="menu.logout()">Logout</a></span>
+    <div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
+        <div class="title-bar">
+            <span class="left"><img
+                    src="https://d78fikflryjgj.cloudfront.net/images/01ef898811a879595cea8ac3cd77a155/header-logo-2x.png"
+                    alt="" style="max-height: 30px; margin-top:-8px; margin-bottom: -8px;"/> for <img
+                    src="https://assets.akkroo.com/marketing/img/akkroo-logo.svg" alt=""
+                    style="max-height: 30px; margin-top:-6px; margin-bottom: -6px;"/></span>
+            <span class="title center">{{menu.title}}</span>
+			<span class="right">{{member.fullName}} - <a ng-show="member.fullName"
+                                                         ng-click="menu.logout()">Logout</a></span>
 
-		</div>
-	</div>
-	<div ui-view class="grid-content">
-	</div>
+        </div>
+    </div>
+    <div ui-view class="grid-block">
+    </div>
 </div>
 </body>
 </html>

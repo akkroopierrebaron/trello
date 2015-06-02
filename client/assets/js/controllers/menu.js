@@ -15,6 +15,9 @@
             $scope.$on('login', function (event, member) {
                 vm.member = member;
             });
+            $scope.$on('menu-title-changed', function (event, title) {
+                vm.title = title;
+            });
         }
 
         function logout() {
