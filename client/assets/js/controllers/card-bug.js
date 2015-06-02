@@ -98,8 +98,8 @@
                 "# Page \r\n" + obj.page + " \r\n \r\n" +
                 "# Context \r\n" + obj.context + " \r\n \r\n" +
                 "# Actions \r\n" + obj.actions + " \r\n \r\n" +
-                "# Result \r\n" + obj.expected + " \r\n \r\n" +
-                "# Expected \r\n" + obj.result;
+                "# Result \r\n" + obj.result + " \r\n \r\n" +
+                "# Expected \r\n" + obj.expected;
             return string;
         }
     }
