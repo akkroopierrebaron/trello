@@ -1,5 +1,62 @@
 ---
 name: card-feature
 url: /card-feature
-controller: CardCtrl
+controller: CardFeatureCtrl
 ---
+
+<div class="grid-block">
+    <form name="cardForm">
+        <label>
+            Name
+            <input type="text" placeholder="Mass duplication" ng-model="card.name">
+        </label>
+
+        <label>
+            As a
+            <input type="text" placeholder="manager" ng-model="card.who">
+        </label>
+
+        <label>
+            I would like to be able
+            <textarea placeholder="To batch duplicate one event." ng-model="card.what"></textarea>
+        </label>
+
+        <label>
+            So that
+			<textarea placeholder="I can create several events with just small changes really quickly."
+                      ng-model="card.why"></textarea>
+        </label>
+
+        <label>
+            Dev information
+            <textarea placeholder="I can change the name, date and preselected university"
+                      ng-model="card.information"></textarea>
+        </label>
+
+        <label>
+            Labels
+            <select ng-model="card.idLabels"
+                    ng-options="label.id as label.name for label in form.labels" multiple></select>
+
+            <ui-select multiple ng-model="card.idLabels" theme="foundation">
+                <ui-select-match placeholder="Select label...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="label.id as label in form.labels | filter: $select.search">
+                    <div ng-bind-html="label.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </label>
+        <label>
+            Members
+            <ui-select multiple ng-model="card.idMembers" theme="foundation">
+                <ui-select-match placeholder="Select member...">{{$item.name}}</ui-select-match>
+                <ui-select-choices repeat="member.id as member in form.members | filter: $select.search">
+                    <div ng-bind-html="member.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </label>
+
+        <input type="submit" class="button success" value="submit"
+               ng-click="submitCard()"/>
+    </form>
+</div>
+<div class="grid-block"></div>
