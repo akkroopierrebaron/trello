@@ -20,19 +20,19 @@
 <body>
 <div class="grid-frame vertical">
     <div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
-        <div class="title-bar">
-            <span class="left"><img
+        <div class="title-bar dark">
+            <a class="left" ui-sref="home"><img
                     src="https://d78fikflryjgj.cloudfront.net/images/01ef898811a879595cea8ac3cd77a155/header-logo-2x.png"
                     alt="" style="max-height: 30px; margin-top:-8px; margin-bottom: -8px;"/> for <img
                     src="https://assets.akkroo.com/marketing/img/akkroo-logo.svg" alt=""
-                    style="max-height: 30px; margin-top:-6px; margin-bottom: -6px;"/></span>
+                    style="max-height: 30px; margin-top:-6px; margin-bottom: -6px;"/></a>
             <span class="title center">{{menu.title}}</span>
 			<span class="right">{{member.fullName}} - <a ng-show="member.fullName"
                                                          ng-click="menu.logout()">Logout</a></span>
 
         </div>
     </div>
-    <div ui-view class="grid-block">
+    <div ui-view class="grid-content">
     </div>
 </div>
 </body>

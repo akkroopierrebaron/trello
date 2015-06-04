@@ -5,9 +5,9 @@
         .controller('CardBugCtrl', CardBugCtrl);
 
     CardBugCtrl.$inject = [
-        '$scope', '$rootScope', '$stateParams', '$state', '$controller', 'ApiCards', 'ApiLabels', 'ApiLists', 'ApiMembers', 'ENV'
+        '$scope', '$rootScope', '$stateParams', '$state', '$controller', 'ApiCards', 'ApiLabels', 'ApiLists', 'ApiMembers', 'ENV', 'ModalFactory', '$q'
     ];
-    function CardBugCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV) {
+    function CardBugCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV, ModalFactory, $q) {
         angular.extend(this, $controller('DefaultController', {
             $scope       : $scope,
             $stateParams : $stateParams,
@@ -34,20 +34,28 @@
             idMembers : []
         };
 
+        $scope.originalCard = angular.copy($scope.card);
+
         $scope.markdown = "";
 
         activate();
+
         $scope.submitCard = submitCard;
-        $scope.$watch('card', updatePreview, true);
 
         function activate() {
-            ApiLabels
-                .getAllLabels()
-                .then(function (labels) {
+            var getAllLabelsPromise = ApiLabels.getAllLabels();
+            var getAllMembers = ApiMembers.getAllMembers();
+            var getList = ApiLists.getList(ENV.lists.bugs);
+
+            $q.all([getAllLabelsPromise, getAllMembers, getList])
+                .then(function (results) {
+                    var labels = results[0];
+                    var members = results[1];
+                    var list = results[2];
+
                     $scope.form.labels = labels.filter(function (label) {
                         return label.name;
                     });
-
                     var preselectedLabels = [ENV.labels.bug, ENV.labels.reproduced];
 
                     $scope.card.idLabels = labels
@@ -55,28 +63,33 @@
                             return preselectedLabels.find(label.name) !== undefined;
                         })
                         .map(function (label) { return label.id; });
-                });
 
-            ApiMembers
-                .getAllMembers()
-                .then(function (members) {
                     $scope.form.members = members;
+                    $scope.card.idList = list.id;
+
+                    $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
+                    $scope.originalCard.idList = angular.copy($scope.card.idList);
                 });
 
-            ApiLists
-                .getList(ENV.lists.bugs)
-                .then(function (list) {
-                    $scope.card.idList = list.id;
-                });
+            var config = {
+                templateUrl: 'templates/bug/modal.html',
+                contentScope: {
+                    createFromExisting : createFromExisting,
+                    createFromScratch  : createFromScratch,
+                    letMeAlone         : letMeAlone,
+                },
+                animationIn: 'slideInFromTop'
+            }
+            $scope.modal = new ModalFactory(config);
         }
 
-        function submitCard() {
+        function submitCard(card) {
             var args = {
-                name      : $scope.card.name,
-                desc      : createDescription($scope.card),
-                idMembers : $scope.card.idMembers,
-                idLabels  : $scope.card.idLabels,
-                idList    : $scope.card.idList,
+                name      : card.name,
+                desc      : createDescription(card),
+                idMembers : card.idMembers,
+                idLabels  : card.idLabels,
+                idList    : card.idList,
                 due       : null,
                 urlSource : null
             };
@@ -84,13 +97,32 @@
             ApiCards
                 .postCard(args)
                 .then(function (card) {
-                    console.log("card created", card);
+                    $scope.modal.activate();
                 });
         }
 
-        function updatePreview() {
-            console.log("update preview");
-            $scope.markdown = createDescription($scope.card);
+        function createFromExisting() {
+            $scope.card = angular.extend({}, $scope.card, {
+                name      : "",
+                page      : "",
+                context   : "",
+                actions   : "",
+                result    : "",
+                expected  : "",
+            });
+
+            $scope.modal.deactivate();
+        }
+
+        function createFromScratch() {
+             $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
+
+            $scope.modal.deactivate();
+        }
+
+        function letMeAlone() {
+            $scope.modal.deactivate();
+            state.go("home");
         }
 
         function createDescription(obj) {

@@ -3,6 +3,31 @@
 @import "ui.select.foundation";
 @import "preview";
 
-#{$text-input-selectors} {
-    border-radius: 2px;
+.title-bar.dark {
+	padding: 1em 2em;
+}
+
+label > .grid-block input,
+label > .grid-block textarea,
+label > .grid-block .select2-container {
+	margin-top : 0.5em
+}
+
+.grid-container-padding {
+	padding: 2em;
+}
+
+#{$text-input-selectors},
+.select2-container {
+    border-radius : 2px;
+
+    & + .help-text {
+        margin-top : -1em;
+    }
+}
+
+.help-text {
+    color      : $gray-dark;
+    //font-size  : 90%;
+    font-style : italic;
 }

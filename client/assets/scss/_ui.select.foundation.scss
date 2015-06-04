@@ -12,8 +12,12 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 	background: #fafafa url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgMTYgMyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+DQo=") no-repeat;
 	background-position-x: 100%;
 	background-position-y: center;
-
 }
+
+label > .select2-container {
+    margin-top: 0.5rem;
+}
+
 .select2-container:hover {
 	background-color: #f2f2f2;
 	border-color: #999;
@@ -132,8 +136,8 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 	z-index: 9999;
 	top: 100%;
 
-	background: #fafafa;
-	color: #000;
+	background: $input-border-focus;
+	color : $body-font-color;
 	border: 1px solid #999;
 	border-top: 0;
 
@@ -344,7 +348,7 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 }
 
 .select2-results .select2-highlighted {
-	background: #3875d7;
+	background: $primary-color;
 	color: #fff;
 }
 
@@ -434,8 +438,21 @@ disabled look for disabled choices in the results dropdown
 	cursor: text;
 	overflow: hidden;
 
-	background-color: #fafafa;
-	border: 1px solid #ccc;
+	border-radius : 2px;
+	background-color: $input-background;
+	border: $input-border;
+	background-image: none;
+
+
+	&:hover {
+		background-color: $input-background-hover;
+		border: $input-border-hover;
+	}
+
+	&:focus {
+		background-color: $input-background-focus;
+		border: $input-border-focus;
+	}
 }
 
 .select2-locked {
@@ -497,11 +514,14 @@ disabled look for disabled choices in the results dropdown
 	position: relative;
 
 	line-height: 1.5rem;
-	color: #333;
+	color: rgba(255, 255, 255, 0.85);
 	cursor: default;
 
-	background-color: #ddd;
+	border : none;
+	box-shadow : none;
 
+	background-color: #637680;
+	background-image: none;
 	background-clip: padding-box;
 
 	-webkit-touch-callout: none;
@@ -509,7 +529,6 @@ disabled look for disabled choices in the results dropdown
 		 -moz-user-select: none;
 		  -ms-user-select: none;
 			  user-select: none;
-
 }
 .select2-container-multi .select2-choices .select2-search-choice .select2-chosen {
 	cursor: default;
@@ -523,16 +542,14 @@ disabled look for disabled choices in the results dropdown
 	width: 0.75rem;
 	height: 0.75rem;
 	position: absolute;
-	right: .25rem;
-	top: .5rem;
+	top: .6rem;
 	font-size: 1px;
 	outline: none;
-	background: transparent url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjlweCIgaGVpZ2h0PSI5cHgiIHZpZXdCb3g9Ii0xIC0xIDkgOSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAtMSAtMSA5IDkiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNy41LDAuOTU1IDYuMDQ2LC0wLjUgMy41LDIuMDQ1IDAuOTU1LC0wLjUgLTAuNSwwLjk1NSAyLjA0NSwzLjUgLTAuNSw2LjA0NCAwLjk1NSw3LjUgMy41LDQuOTU0IDYuMDQ2LDcuNSA3LjUsNi4wNDQgNC45NTQsMy41ICIvPjwvc3ZnPg==") 50% 50% no-repeat;
-	opacity: 0.5;
+	opacity: 1;
 }
 
 .select2-container-multi .select2-search-choice-close {
-	left: .25rem;
+	left: .35rem;
 }
 
 .select2-container-multi .select2-choices .select2-search-choice .select2-search-choice-close:hover {
@@ -563,6 +580,9 @@ disabled look for disabled choices in the results dropdown
 }
 /* end multiselect */
 
+.select2-result-single {
+	margin-left : 0;
+}
 
 .select2-result-selectable .select2-match,
 .select2-result-unselectable .select2-match {
@@ -594,16 +614,4 @@ disabled look for disabled choices in the results dropdown
 	width: 100px;
 	height: 100px;
 	overflow: scroll;
-}
-/* Retina-ize icons */
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)  {
-  .select2-search input, .select2-search-choice-close, .select2-container .select2-choice abbr, .select2-container .select2-choice .select2-arrow b {
-	  background-image: url('select2x2.png') !important;
-	  background-repeat: no-repeat !important;
-	  background-size: 60px 40px !important;
-  }
-  .select2-search input {
-	  background-position: 100% -21px !important;
-  }
 }
