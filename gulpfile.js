@@ -34,7 +34,8 @@ var paths = {
         'bower_components/foundation-apps/scss',
     ],
     vendorCSS    : [
-        'bower_components/angular-ui-select/dist/select.min.css'
+        'bower_components/angular-ui-select/dist/select.min.css',
+        'bower_components/ladda/dist/ladda.min.css'
     ],
     // These files include Foundation for Apps and its dependencies
     foundationJS : [
@@ -54,8 +55,9 @@ var paths = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/sugar/release/sugar.min.js',
         'bower_components/angular-ui-select/dist/select.min.js',
-        'bower_components/showdown/compressed/showdown.min.js',
-        'bower_components/angular-markdown-directive/markdown.js'
+        'bower_components/ladda/dist/spin.min.js',
+        'bower_components/ladda/dist/ladda.min.js',
+        'bower_components/angular-ladda/dist/angular-ladda.min.js'
     ],
     // These files are for your app's JavaScript
     appJS        : [
@@ -72,8 +74,8 @@ var paths = {
         'client/assets/js/controllers/home.js',
         'client/assets/js/controllers/login.js',
         'client/assets/js/controllers/menu.js',
-        'client/assets/js/controllers/card-bug.js',
-        'client/assets/js/controllers/card-feature.js'
+        'client/assets/js/controllers/bug.js',
+        'client/assets/js/controllers/feature.js'
     ]
 };
 

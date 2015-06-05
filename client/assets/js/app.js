@@ -13,7 +13,7 @@
 
         'config',
         'ui.select',
-        'btford.markdown'
+        'angular-ladda'
     ])
         .config(config);
 

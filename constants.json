@@ -3,7 +3,7 @@
     "board": "AkkrooTrello",
     "lists": {
       "feature": "Todo",
-      "bugs": "Known issues"
+      "bug": "Known issues"
     },
     "labels": {
       "feature": "Feature",
@@ -15,7 +15,7 @@
     "board": "Development",
     "lists": {
       "feature": "",
-      "bugs": "Known Issues"
+      "bug": "Known Issues"
     },
     "labels": {
       "feature": "",

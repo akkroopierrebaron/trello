@@ -2,12 +2,12 @@
     "use strict";
 
     angular.module('application')
-        .controller('CardBugCtrl', CardBugCtrl);
+        .controller('BugCtrl', BugCtrl);
 
-    CardBugCtrl.$inject = [
+    BugCtrl.$inject = [
         '$scope', '$rootScope', '$stateParams', '$state', '$controller', 'ApiCards', 'ApiLabels', 'ApiLists', 'ApiMembers', 'ENV', 'ModalFactory', '$q'
     ];
-    function CardBugCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV, ModalFactory, $q) {
+    function BugCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV, ModalFactory, $q) {
         angular.extend(this, $controller('DefaultController', {
             $scope       : $scope,
             $stateParams : $stateParams,
@@ -16,7 +16,24 @@
 
         $rootScope.$broadcast('menu-title-changed', 'Bug');
 
-        $rootScope.menuTitle = "Bug";
+        var errorModalConfig = {
+            templateUrl: 'templates/modals/error.html',
+            contentScope: {
+                title   : "",
+                message : ""
+            },
+            animationIn: 'slideInFromTop'
+        };
+
+        var cardCreatedConfig = {
+            templateUrl: 'templates/modals/cardCreated.html',
+            contentScope: {
+                createFromExisting : createFromExisting,
+                createFromScratch  : createFromScratch,
+                letMeAlone         : letMeAlone,
+            },
+            animationIn: 'slideInFromTop'
+        };
 
         $scope.form = {
             labels  : [],
@@ -33,19 +50,20 @@
             idLabels  : [],
             idMembers : []
         };
+        $scope.submitLoading = false;
 
         $scope.originalCard = angular.copy($scope.card);
-
-        $scope.markdown = "";
 
         activate();
 
         $scope.submitCard = submitCard;
 
         function activate() {
+            $scope.createdCardModal = new ModalFactory(cardCreatedConfig);
+
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getList = ApiLists.getList(ENV.lists.bugs);
+            var getList = ApiLists.getList(ENV.lists.bug);
 
             $q.all([getAllLabelsPromise, getAllMembers, getList])
                 .then(function (results) {
@@ -69,21 +87,20 @@
 
                     $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
                     $scope.originalCard.idList = angular.copy($scope.card.idList);
+                })
+                .catch(function() {
+                    var config = angular.extend({}, errorModalConfig, {
+                        title : "Too bad !",
+                        message : "We are not able to load the required configuration. Please try again later."
+                    })
+                    $scope.errorModal = new ModalFactory(config);
+                    $scope.errorModal.activate();
                 });
-
-            var config = {
-                templateUrl: 'templates/bug/modal.html',
-                contentScope: {
-                    createFromExisting : createFromExisting,
-                    createFromScratch  : createFromScratch,
-                    letMeAlone         : letMeAlone,
-                },
-                animationIn: 'slideInFromTop'
-            }
-            $scope.modal = new ModalFactory(config);
         }
 
         function submitCard(card) {
+            $scope.submitLoading = true;
+
             var args = {
                 name      : card.name,
                 desc      : createDescription(card),
@@ -97,7 +114,20 @@
             ApiCards
                 .postCard(args)
                 .then(function (card) {
-                    $scope.modal.activate();
+                    $scope.createdCardModal.activate();
+                })
+                .catch(function(error) {
+                    console.error(error);
+
+                    var config = angular.extend({}, errorModalConfig, {
+                        title : "Ho no, we have not been able to create the card :(",
+                        message : "The error has been logged in the JS console of your browser"
+                    })
+                    $scope.errorModal = new ModalFactory(config);
+                    $scope.errorModal.activate();
+                })
+                .finally(function () {
+                    $scope.submitLoading = false;
                 });
         }
 
@@ -111,17 +141,17 @@
                 expected  : "",
             });
 
-            $scope.modal.deactivate();
+            $scope.createdCardModal.deactivate();
         }
 
         function createFromScratch() {
              $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
 
-            $scope.modal.deactivate();
+            $scope.createdCardModal.deactivate();
         }
 
         function letMeAlone() {
-            $scope.modal.deactivate();
+            $scope.createdCardModal.deactivate();
             state.go("home");
         }
 

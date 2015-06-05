@@ -1,7 +1,7 @@
 ---
-name: bug
-url: /bug
-controller: BugCtrl
+name: feature
+url: /feature
+controller: FeatureCtrl
 ---
 <div class="grid-block">
     <div class="grid-container grid-container-padding small-12">
@@ -21,61 +21,52 @@ controller: BugCtrl
             </label>
 
             <label>
-                Url
+                As a *
                 <div class="grid-block">
                     <div class="small-9 grid-content">
-                        <input type="url" placeholder="http://www.example.com" ng-model="card.page">
+                        <input type="text" placeholder="manager" ng-model="card.who" required>
                     </div>
                     <div class="small-3 grid-content">
-                        <p class="help-text">Give the url to reproduce the bug.</p>
+                        <p class="help-text">Explicit the user of this new feature.</p>
                     </div>
                 </div>
             </label>
             <label>
-                Context
+                I would like to be able *
                 <div class="grid-block">
                     <div class="small-9 grid-content">
-                        <textarea placeholder="Logged in as Akkroo member." ng-model="card.context"></textarea>
+                        <textarea placeholder="To batch duplicate one event." ng-model="card.what" required></textarea>
                     </div>
                     <div class="small-3 grid-content">
-                        <p class="help-text">Describe the context of your environment.</p>
+                        <p class="help-text">Describe the purpose of this new feature.</p>
                     </div>
                 </div>
 
             </label>
 
             <label>
-                Actions
+                so that *
                 <div class="grid-block">
                     <div class="small-9 grid-content">
-                        <textarea placeholder="Went to the 'display' page. Clicked on the 'Add' button."
-                      ng-model="card.actions"></textarea>
+                        <textarea placeholder="I can create several events with just small changes really quickly."
+                     			  ng-model="card.why" required></textarea>
                     </div>
                     <div class="small-3 grid-content">
-                        <p class="help-text">Describe how to reproduce the bug.</p>
+                        <p class="help-text">Describe the reason why the user want this feature. It will give the context of the need.</p>
                     </div>
                 </div>
             </label>
 
             <label>
-                Result *
+                More information
                  <div class="grid-block">
                     <div class="small-9 grid-content">
-                        <textarea placeholder="Nothing happens." ng-model="card.result" required></textarea>
+                        <textarea placeholder="I can change the name, date and preselected university"
+                        		  ng-model="card.information" rows="10"></textarea>
+                      	<p class="help-text">You can use Markdown. (<a href="http://help.trello.com/article/821-using-markdown-in-trello">see the syntax for Trello</a>)</p>
                     </div>
                     <div class="small-3 grid-content">
                         <p class="help-text">Describe what you have on your screen, in your console, ....</p>
-                    </div>
-                </div>
-            </label>
-            <label>
-                Expected
-                 <div class="grid-block">
-                    <div class="small-9 grid-content">
-                        <textarea placeholder="I should have been redirected." ng-model="card.expected"></textarea>
-                    </div>
-                    <div class="small-3 grid-content">
-                        <p class="help-text">Describe what you were expected.</p>
                     </div>
                 </div>
             </label>
@@ -92,7 +83,7 @@ controller: BugCtrl
                         </ui-select>
                     </div>
                     <div class="small-3 grid-content">
-                        <p class="help-text">Adding labels help the member of the team to find the bug in Trello.</p>
+                        <p class="help-text">Adding labels help the member of the team to find the feature in Trello.</p>
                     </div>
                 </div>
 
@@ -110,7 +101,7 @@ controller: BugCtrl
                         </ui-select>
                     </div>
                     <div class="small-3 grid-content">
-                        <p class="help-text">Add members to work on this bug.</p>
+                        <p class="help-text">Add members to work on this feature.</p>
                     </div>
                 </div>
             </label>
