@@ -14,13 +14,13 @@
   "production": {
     "board": "Development",
     "lists": {
-      "feature": "",
+      "feature": "Suggestions",
       "bug": "Known Issues"
     },
     "labels": {
-      "feature": "",
-      "bug": "",
-      "reproduced": ""
+      "feature": "Feature",
+      "bug": "Issue",
+      "reproduced": "Reproduced"
     }
   }
 }
