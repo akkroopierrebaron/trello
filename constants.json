@@ -15,7 +15,7 @@
     "board": "Development",
     "lists": {
       "feature": "Suggestions",
-      "bug": "Known Issues"
+      "bug": "Known issues"
     },
     "labels": {
       "feature": "Feature",

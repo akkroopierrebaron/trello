@@ -91,9 +91,12 @@
                 .catch(function(error) {
                 	console.error(error);
                     var config = angular.extend({}, errorModalConfig, {
-                        title : "Too bad !",
-                        message : "We are not able to load the required configuration. Please try again later."
-                    })
+                        contentScope : {
+                        	title : "Too bad !",
+                        	message : "We are not able to load the required configuration. Please try again later."
+                        }
+                    });
+                    console.log()
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 });
@@ -121,8 +124,10 @@
                     console.error(error);
 
                     var config = angular.extend({}, errorModalConfig, {
-                        title : "Ho no, we have not been able to create the card :(",
-                        message : "The error has been logged in the JS console of your browser"
+                    	contentScope : {
+	                        title : "Ho no, we have not been able to create the card :(",
+	                        message : "The error has been logged in the JS console of your browser"
+	                    }
                     })
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
