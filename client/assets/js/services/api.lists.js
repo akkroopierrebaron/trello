@@ -32,7 +32,6 @@
         function getList(listName) {
             return getAllLists()
                 .then(function (lists) {
-                    console.log(lists);
                     return Api.getSingleElement(lists, listName, 'name');
                 });
         }

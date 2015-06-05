@@ -88,7 +88,8 @@
                     $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
                     $scope.originalCard.idList = angular.copy($scope.card.idList);
                 })
-                .catch(function() {
+                .catch(function(error) {
+                	console.error(error);
                     var config = angular.extend({}, errorModalConfig, {
                         title : "Too bad !",
                         message : "We are not able to load the required configuration. Please try again later."
