@@ -5,6 +5,7 @@
     "start": "gulp build"
   },
   "dependencies": {
+    "bower": "^1.4.1",
     "express": "^4.12.2",
     "gzippo": "^0.2.0",
     "morgan": "^1.5.1"
