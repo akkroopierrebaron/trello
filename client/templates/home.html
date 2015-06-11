@@ -7,14 +7,21 @@ controller: HomeCtrl
 <div class="grid-container">
     <h1>Welcome to Trello for Akkroo!</h1>
 
-    <p class="lead">What do you want to create ?</p>
+    <div ng-if="!member.fullName">
+                <p class="lead">Please log in to use Trello for Akkroo</p>
+                <p>Authorise this application through the popup that just been opened.</p>
+    </div>
 
-    <ul>
-        <li>
-            <a ui-sref="feature">Feature</a>
-        </li>
-        <li>
-            <a ui-sref="bug">Bug</a>
-        </li>
-    </ul>
+    <div ng-if="member.fullName">
+        <p class="lead">What do you want to create ?</p>
+
+        <ul>
+            <li>
+                <a ui-sref="feature">Feature</a>
+            </li>
+            <li>
+                <a ui-sref="bug">Bug</a>
+            </li>
+        </ul>
+    </div>
 </div>

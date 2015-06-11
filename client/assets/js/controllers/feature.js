@@ -14,7 +14,7 @@
             $state       : $state
         }));
 
-        $rootScope.$broadcast('menu-title-changed', 'Feature');
+        $rootScope.title = "Feature";
 
         var errorModalConfig = {
             templateUrl: 'templates/modals/error.html',

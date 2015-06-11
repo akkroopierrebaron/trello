@@ -28,13 +28,5 @@
         });
 
         $locationProvider.hashPrefix('!');
-
-        Trello.authorize({
-            type        : "popup",
-            name        : "Trello for Akkroo",
-            persist     : true,
-            interactive : true,
-            scope       : {write : true, read : true}
-        });
     }
 })();

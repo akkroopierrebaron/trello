@@ -13,11 +13,9 @@
         }));
         activate();
 
-        $scope.connectToTrello = connectToTrello;
-        function activate() {
-        }
+        $rootScope.title = "Home";
 
-        function connectToTrello() {
+        function activate() {
         }
     }
 })();

@@ -15,6 +15,11 @@
     <script src="https://api.trello.com/1/client.js?key=17cdf5764d759e04318e543c1d1a27d3"></script>
 
     <script src="/assets/js/app.js"></script>
+    <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  		display: none !important;
+	}
+</style>
 </head>
 <body>
 <div class="grid-frame vertical">
@@ -25,10 +30,12 @@
                     alt="" />
                 for Akkroo
             </a>
-            <span class="title center">{{menu.title}}</span>
-			<span class="right">{{member.fullName}} - <a ng-show="member.fullName"
-                                                         ng-click="menu.logout()">Logout</a></span>
-
+            <span class="title center">{{title}}</span>
+			<span class="right">
+				<span ng-show="member.fullName">
+					{{member.fullName}} - <a ng-click="menu.logout()">Logout</a>
+                </span>
+            </span>
         </div>
     </div>
     <div ui-view class="grid-content">
