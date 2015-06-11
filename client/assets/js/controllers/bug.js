@@ -158,7 +158,7 @@
 
         function letMeAlone() {
             $scope.createdCardModal.deactivate();
-            state.go("home");
+            $state.go("home");
         }
 
         function createDescription(obj) {
