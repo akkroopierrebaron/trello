@@ -16,30 +16,39 @@
 
     <script src="/assets/js/app.js"></script>
     <style>
-    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  		display: none !important;
-	}
-</style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-<div class="grid-frame vertical">
-    <div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
-        <div class="title-bar dark">
-            <a class="left" ui-sref="home">
-            	<img src="assets/img/trello-mark-white.png" style="max-height: 20px; margin-top: -4px; margin-bottom: -2px;"
-                    alt="" />
-                for Akkroo
-            </a>
-            <span class="title center">{{title}}</span>
-			<span class="right">
-				<span ng-show="member.fullName">
-					{{member.fullName}} - <a ng-click="menu.logout()">Logout</a>
-                </span>
-            </span>
+    <div class="grid-frame vertical">
+        <div class="grid-content shrink" style="padding: 0;" ng-controller="MenuCtrl as menu">
+            <div class="menu-group dark">
+                <div class="menu-group-left">
+                    <ul class="menu-bar primary icon-left">
+                        <li><a ui-sref="home"><img src="assets/img/trello-mark-white.png" alt="Trello" style="height: 16px;" /> for Akkroo</a></li>
+                    </ul>
+                </div>
+
+                <span class="title center">{{title}}</span>
+
+                <div class="menu-group-right icon-left" ng-cloak>
+                    <ul class="icon-left primary menu-bar" ng-show="member.fullName">
+                        <li><a href="#" zf-popup-toggle="popup">
+                            <gravatar name="{{member.fullName}}" width="30" hash="{{member.gravatarHash}}" class="gravatar"></gravatar>
+                            {{member.fullName}}</a></li>
+                        </ul>
+                        <zf-popup id="popup" ng-show="member.fullName">
+                        <ul class="vertical menu-bar icon-left">
+                            <li><a ng-click="menu.logout()"><img zf-iconic="" icon="account" size="small"> Logout</a></li>
+                        </ul>
+                    </zf-popup>
+                </div>
+            </div>
+        </div>
+        <div ui-view class="grid-content">
         </div>
     </div>
-    <div ui-view class="grid-content">
-    </div>
-</div>
 </body>
 </html>

@@ -75,7 +75,8 @@ var paths = {
         'client/assets/js/controllers/login.js',
         'client/assets/js/controllers/menu.js',
         'client/assets/js/controllers/bug.js',
-        'client/assets/js/controllers/feature.js'
+        'client/assets/js/controllers/feature.js',
+        'client/assets/js/directives/gravatar.js'
     ]
 };
 

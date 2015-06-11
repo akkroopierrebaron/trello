@@ -34,3 +34,17 @@ label > .grid-block .select2-container {
     //font-size  : 90%;
     font-style : italic;
 }
+
+.menu-group {
+	.title {
+		color : $gray;
+		font-weight : bold;
+	}
+}
+
+.gravatar {
+	margin-top: -8px !important;
+	margin-bottom: -8px !important;
+	border: 1px solid $gray-dark;
+	border-radius : 50em;
+}
