@@ -2,30 +2,30 @@
     "dev": {
         "board": "AkkrooTrello",
         "feature" : {
-            "list": ["Todo"],
+            "list": "Todo",
             "labels" : ["Feature"]
         },
         "bug" : {
-            "list": ["Known issues"],
+            "list": "Known issues",
             "labels" : ["Bug", "Reproduced"]
         },
         "bugReactApp" : {
-            "list": ["Akkroo++ testing iOS App"],
+            "list": "Akkroo++ testing iOS App",
             "labels" : []
         }
     },
     "production": {
         "board": "Development",
         "feature" : {
-            "list": ["Todo"],
+            "list": "Todo",
             "labels" : ["Feature"]
         },
         "bug" : {
-            "list": ["Known issues"],
+            "list": "Known issues",
             "labels" : ["Bug", "Reproduced"]
         },
         "bugReactApp" : {
-            "list": ["Akkroo++ testing iOS App"],
+            "list": "Akkroo++ testing iOS App",
             "labels" : []
         }
     }
