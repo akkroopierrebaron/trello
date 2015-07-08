@@ -7,7 +7,7 @@
         },
         "bug" : {
             "list": "Known issues",
-            "labels" : ["Bug", "Reproduced"]
+            "labels" : ["Issue", "Reproduced"]
         },
         "bugReactApp" : {
             "list": "Akkroo++ testing iOS App",
@@ -22,11 +22,11 @@
         },
         "bug" : {
             "list": "Known issues",
-            "labels" : ["Bug", "Reproduced"]
+            "labels" : ["Issue", "Reproduced"]
         },
         "bugReactApp" : {
             "list": "Akkroo++ testing iOS App",
-            "labels" : []
+            "labels" : ["Issue", "Reproduced"]
         }
     }
 }
