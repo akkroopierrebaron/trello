@@ -7,17 +7,17 @@
         },
         "bug" : {
             "list": "Known issues",
-            "labels" : ["Issue", "Reproduced"]
+            "labels" : ["Bug", "Reproduced"]
         },
         "bugReactApp" : {
-            "list": "Akkroo++ testing iOS App",
-            "labels" : []
+            "list": "Known issues",
+            "labels" : ["Bug", "Reproduced"]
         }
     },
     "production": {
         "board": "Development",
         "feature" : {
-            "list": "Todo",
+            "list": "Suggestions",
             "labels" : ["Feature"]
         },
         "bug" : {
