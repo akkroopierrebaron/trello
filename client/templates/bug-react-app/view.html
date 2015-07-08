@@ -1,0 +1,129 @@
+---
+name: bugreactapp
+url: /bugreactapp
+controller: BugReactAppCtrl
+---
+<div class="grid-block">
+    <div class="grid-container grid-container-padding small-12">
+        <form name="cardForm">
+            <label>
+                Title *
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <input type="text" placeholder="Add button does not redirect to the create form"
+                       ng-model="card.name" required>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Give an explicit title of the bug.</p>
+                    </div>
+                </div>
+
+            </label>
+
+            <label>
+                Url
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <input type="text" placeholder="form view" ng-model="card.page">
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Give the url to reproduce the bug.</p>
+                    </div>
+                </div>
+            </label>
+            <label>
+                Context
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <textarea placeholder="Logged in as Akkroo member." ng-model="card.context"></textarea>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Describe the context of your environment.</p>
+                    </div>
+                </div>
+
+            </label>
+
+            <label>
+                Actions
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <textarea placeholder="Went to the 'display' page. Clicked on the 'Add' button."
+                      ng-model="card.actions"></textarea>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Describe how to reproduce the bug.</p>
+                    </div>
+                </div>
+            </label>
+
+            <label>
+                Result *
+                 <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <textarea placeholder="Nothing happens." ng-model="card.result" required></textarea>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Describe what you have on your screen, in your console, ....</p>
+                    </div>
+                </div>
+            </label>
+            <label>
+                Expected
+                 <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <textarea placeholder="I should have been redirected." ng-model="card.expected"></textarea>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Describe what you were expected.</p>
+                    </div>
+                </div>
+            </label>
+
+            <label>
+                Labels
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <ui-select multiple ng-model="card.idLabels" theme="select2">
+                            <ui-select-match placeholder="Select label...">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat="label.id as label in form.labels | filter: $select.search">
+                                <div ng-bind-html="label.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Adding labels help the member of the team to find the bug in Trello.</p>
+                    </div>
+                </div>
+
+            </label>
+
+            <label>
+                Members
+                <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <ui-select multiple ng-model="card.idMembers" theme="select2">
+                            <ui-select-match placeholder="Select member...">{{$item.fullName}}</ui-select-match>
+                            <ui-select-choices repeat="member.id as member in form.members | filter: $select.search">
+                                <div ng-bind-html="member.fullName | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Add members to work on this bug.</p>
+                    </div>
+                </div>
+            </label>
+            <input type="hidden" ng-model="card.idList" required>
+
+            <button class="button success"
+                    ng-class="{disabled : !cardForm.$valid || submitLoading}"
+                    ladda="submitLoading"
+                    ng-disabled="!cardForm.$valid || submitLoading"
+                    ng-click="submitCard(card)"
+                    data-style="expand-left">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>

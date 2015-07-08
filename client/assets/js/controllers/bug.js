@@ -63,7 +63,7 @@
 
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getList = ApiLists.getList(ENV.lists.bug);
+            var getList = ApiLists.getList(ENV.bug.list);
 
             $q.all([getAllLabelsPromise, getAllMembers, getList])
                 .then(function (results) {
@@ -74,7 +74,7 @@
                     $scope.form.labels = labels.filter(function (label) {
                         return label.name;
                     });
-                    var preselectedLabels = [ENV.labels.bug, ENV.labels.reproduced];
+                    var preselectedLabels = ENV.bug.labels;
 
                     $scope.card.idLabels = labels
                         .filter(function (label) {

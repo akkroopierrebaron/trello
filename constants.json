@@ -1,26 +1,32 @@
 {
-  "dev": {
-    "board": "AkkrooTrello",
-    "lists": {
-      "feature": "Todo",
-      "bug": "Known issues"
+    "dev": {
+        "board": "AkkrooTrello",
+        "feature" : {
+            "list": ["Todo"],
+            "labels" : ["Feature"]
+        },
+        "bug" : {
+            "list": ["Known issues"],
+            "labels" : ["Bug", "Reproduced"]
+        },
+        "bugReactApp" : {
+            "list": ["Akkroo++ testing iOS App"],
+            "labels" : []
+        }
     },
-    "labels": {
-      "feature": "Feature",
-      "bug": "Bug",
-      "reproduced": "Reproduced"
+    "production": {
+        "board": "Development",
+        "feature" : {
+            "list": ["Todo"],
+            "labels" : ["Feature"]
+        },
+        "bug" : {
+            "list": ["Known issues"],
+            "labels" : ["Bug", "Reproduced"]
+        },
+        "bugReactApp" : {
+            "list": ["Akkroo++ testing iOS App"],
+            "labels" : []
+        }
     }
-  },
-  "production": {
-    "board": "Development",
-    "lists": {
-      "feature": "Suggestions",
-      "bug": "Known issues"
-    },
-    "labels": {
-      "feature": "Feature",
-      "bug": "Issue",
-      "reproduced": "Reproduced"
-    }
-  }
 }

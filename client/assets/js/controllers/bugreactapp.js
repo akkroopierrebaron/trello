@@ -2,19 +2,19 @@
     "use strict";
 
     angular.module('application')
-        .controller('FeatureCtrl', FeatureCtrl);
+        .controller('BugReactAppCtrl', BugReactAppCtrl);
 
-    FeatureCtrl.$inject = [
+    BugReactAppCtrl.$inject = [
         '$scope', '$rootScope', '$stateParams', '$state', '$controller', 'ApiCards', 'ApiLabels', 'ApiLists', 'ApiMembers', 'ENV', 'ModalFactory', '$q'
     ];
-    function FeatureCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV, ModalFactory, $q) {
+    function BugReactAppCtrl($scope, $rootScope, $stateParams, $state, $controller, ApiCards, ApiLabels, ApiLists, ApiMembers, ENV, ModalFactory, $q) {
         angular.extend(this, $controller('DefaultController', {
             $scope       : $scope,
             $stateParams : $stateParams,
             $state       : $state
         }));
 
-        $rootScope.title = "Feature";
+        $rootScope.title = "Bug";
 
         var errorModalConfig = {
             templateUrl: 'templates/modals/error.html',
@@ -41,15 +41,15 @@
         };
 
         $scope.card = {
-            name        : "",
-            who         : "",
-            what        : "",
-            why         : "",
-            information : "",
-            idLabels    : [],
-            idMembers   : []
+            name      : "",
+            page      : "",
+            context   : "",
+            actions   : "",
+            result    : "",
+            expected  : "",
+            idLabels  : [],
+            idMembers : []
         };
-
         $scope.submitLoading = false;
 
         $scope.originalCard = angular.copy($scope.card);
@@ -63,7 +63,7 @@
 
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getList = ApiLists.getList(ENV.feature.list);
+            var getList = ApiLists.getList(ENV.bugReactApp.list);
 
             $q.all([getAllLabelsPromise, getAllMembers, getList])
                 .then(function (results) {
@@ -74,8 +74,8 @@
                     $scope.form.labels = labels.filter(function (label) {
                         return label.name;
                     });
+                    var preselectedLabels = ENV.bugReactApp.labels;
 
-                    var preselectedLabels = ENV.feature.labels;
                     $scope.card.idLabels = labels
                         .filter(function (label) {
                             return preselectedLabels.find(label.name) !== undefined;
@@ -89,14 +89,14 @@
                     $scope.originalCard.idList = angular.copy($scope.card.idList);
                 })
                 .catch(function(error) {
-                    console.log(error);
-
+                	console.error(error);
                     var config = angular.extend({}, errorModalConfig, {
-                        contentScope: {
-                            title : "Too bad !",
-                            message : "We are not able to load the required configuration. Please try again later."
+                        contentScope : {
+                        	title : "Too bad !",
+                        	message : "We are not able to load the required configuration. Please try again later."
                         }
-                    })
+                    });
+                    console.log()
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 });
@@ -124,10 +124,10 @@
                     console.error(error);
 
                     var config = angular.extend({}, errorModalConfig, {
-                        contentScope: {
-                            title : "Ho no, we have not been able to create the card :(",
-                            message : "The error has been logged in the JS console of your browser"
-                        }
+                    	contentScope : {
+	                        title : "Ho no, we have not been able to create the card :(",
+	                        message : "The error has been logged in the JS console of your browser"
+	                    }
                     })
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
@@ -139,11 +139,12 @@
 
         function createFromExisting() {
             $scope.card = angular.extend({}, $scope.card, {
-                name        : "",
-                who         : "",
-                what        : "",
-                why         : "",
-                information : ""
+                name      : "",
+                page      : "",
+                context   : "",
+                actions   : "",
+                result    : "",
+                expected  : "",
             });
 
             $scope.createdCardModal.deactivate();
@@ -162,19 +163,11 @@
 
         function createDescription(obj) {
             var string = "" +
-                createUserStory(obj.who, obj.what, obj.why) + " \r\n \r\n" +
-                "# Information \r\n" + obj.information;
-
-            return string;
-        }
-
-        function createUserStory(who, what, why) {
-            var string = "" +
-                "# User story \r\n" +
-                "As a " + who + ", " +
-                "I would like to be able " + what + " " +
-                "so that " + why;
-
+                "# Page \r\n" + obj.page + " \r\n \r\n" +
+                "# Context \r\n" + obj.context + " \r\n \r\n" +
+                "# Actions \r\n" + obj.actions + " \r\n \r\n" +
+                "# Result \r\n" + obj.result + " \r\n \r\n" +
+                "# Expected \r\n" + obj.expected;
             return string;
         }
     }
