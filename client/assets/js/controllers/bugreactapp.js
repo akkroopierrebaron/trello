@@ -14,7 +14,7 @@
             $state       : $state
         }));
 
-        $rootScope.title = "Bug";
+        $rootScope.title = "Bug Akkroo++";
 
         var errorModalConfig = {
             templateUrl  : 'templates/modals/error.html',
