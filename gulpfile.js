@@ -14,6 +14,7 @@ var rimraf = require('rimraf');
 var router = require('front-router');
 var sequence = require('run-sequence');
 var ngConstant = require('gulp-ng-constant');
+var gutil = require('gulp-util');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -198,7 +199,10 @@ gulp.task('uglify:app', function () {
 
 gulp.task('config', function () {
     var myConfig = require('./constants.json');
-    var env = isProduction ? 'production' : 'dev';
+    var env = 'production';
+    if (gutil.env.dev === true) {
+        env = 'dev';
+    }
     var envConfig = myConfig[env];
     return ngConstant({
         name      : 'config',
