@@ -4,14 +4,15 @@
     angular.module('application')
         .controller('MenuCtrl', MenuCtrl);
 
-    MenuCtrl.$inject = ['$scope', '$rootScope', '$state'];
-    function MenuCtrl($scope, $rootScope, $state) {
+    MenuCtrl.$inject = ['$scope', '$rootScope', '$state', 'ENV'];
+    function MenuCtrl($scope, $rootScope, $state, ENV) {
         var vm = this;
 
         activate();
         vm.logout = logout;
 
         function activate() {
+            $rootScope.isProduction = ENV.production;
         }
 
         function logout() {

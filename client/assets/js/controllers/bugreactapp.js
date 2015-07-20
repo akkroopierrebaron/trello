@@ -17,22 +17,23 @@
         $rootScope.title = "Bug";
 
         var errorModalConfig = {
-            templateUrl: 'templates/modals/error.html',
-            contentScope: {
+            templateUrl  : 'templates/modals/error.html',
+            contentScope : {
                 title   : "",
                 message : ""
             },
-            animationIn: 'slideInFromTop'
+            animationIn  : 'slideInFromTop'
         };
 
         var cardCreatedConfig = {
-            templateUrl: 'templates/modals/cardCreated.html',
-            contentScope: {
+            templateUrl  : 'templates/modals/cardCreated.html',
+            contentScope : {
                 createFromExisting : createFromExisting,
                 createFromScratch  : createFromScratch,
                 letMeAlone         : letMeAlone,
+                url                : ""
             },
-            animationIn: 'slideInFromTop'
+            animationIn  : 'slideInFromTop'
         };
 
         $scope.form = {
@@ -88,15 +89,14 @@
                     $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
                     $scope.originalCard.idList = angular.copy($scope.card.idList);
                 })
-                .catch(function(error) {
-                	console.error(error);
+                .catch(function (error) {
+                    console.error(error);
                     var config = angular.extend({}, errorModalConfig, {
                         contentScope : {
-                        	title : "Too bad !",
-                        	message : "We are not able to load the required configuration. Please try again later."
+                            title   : "Too bad !",
+                            message : "We are not able to load the required configuration. Please try again later."
                         }
                     });
-                    console.log()
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 });
@@ -118,17 +118,23 @@
             ApiCards
                 .postCard(args)
                 .then(function (card) {
+                    var config = angular.extend({}, cardCreatedConfig, {
+                        contentScope : {
+                            url : card.shortUrl
+                        }
+                    });
+                    $scope.createdCardModal = new ModalFactory(config);
                     $scope.createdCardModal.activate();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error(error);
 
                     var config = angular.extend({}, errorModalConfig, {
-                    	contentScope : {
-	                        title : "Ho no, we have not been able to create the card :(",
-	                        message : "The error has been logged in the JS console of your browser"
-	                    }
-                    })
+                        contentScope : {
+                            title   : "Ho no, we have not been able to create the card :(",
+                            message : "The error has been logged in the JS console of your browser"
+                        }
+                    });
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 })
@@ -139,19 +145,19 @@
 
         function createFromExisting() {
             $scope.card = angular.extend({}, $scope.card, {
-                name      : "",
-                page      : "",
-                context   : "",
-                actions   : "",
-                result    : "",
-                expected  : "",
+                name     : "",
+                page     : "",
+                context  : "",
+                actions  : "",
+                result   : "",
+                expected : ""
             });
 
             $scope.createdCardModal.deactivate();
         }
 
         function createFromScratch() {
-             $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
+            $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
 
             $scope.createdCardModal.deactivate();
         }
@@ -167,7 +173,8 @@
                 "# Context \r\n" + obj.context + " \r\n \r\n" +
                 "# Actions \r\n" + obj.actions + " \r\n \r\n" +
                 "# Result \r\n" + obj.result + " \r\n \r\n" +
-                "# Expected \r\n" + obj.expected;
+                "# Expected \r\n" + obj.expected + " \r\n \r\n" +
+                "# Miscellaneous \r\n" + obj.information;
             return string;
         }
     }

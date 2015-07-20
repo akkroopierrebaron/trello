@@ -81,6 +81,20 @@ controller: BugReactAppCtrl
             </label>
 
             <label>
+                More information
+                 <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <textarea placeholder="Here is my hypothesis, ..."
+                        		  ng-model="card.information" rows="10"></textarea>
+                      	<p class="help-text">You can use Markdown. (<a href="http://help.trello.com/article/821-using-markdown-in-trello">see the syntax for Trello</a>)</p>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Give more information on the feature, add assumptions, ...</p>
+                    </div>
+                </div>
+            </label>
+
+            <label>
                 Labels
                 <div class="grid-block">
                     <div class="small-9 grid-content">

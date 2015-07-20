@@ -17,22 +17,23 @@
         $rootScope.title = "Feature";
 
         var errorModalConfig = {
-            templateUrl: 'templates/modals/error.html',
-            contentScope: {
+            templateUrl  : 'templates/modals/error.html',
+            contentScope : {
                 title   : "",
                 message : ""
             },
-            animationIn: 'slideInFromTop'
+            animationIn  : 'slideInFromTop'
         };
 
         var cardCreatedConfig = {
-            templateUrl: 'templates/modals/cardCreated.html',
-            contentScope: {
+            templateUrl  : 'templates/modals/cardCreated.html',
+            contentScope : {
                 createFromExisting : createFromExisting,
                 createFromScratch  : createFromScratch,
                 letMeAlone         : letMeAlone,
+                url                : ""
             },
-            animationIn: 'slideInFromTop'
+            animationIn  : 'slideInFromTop'
         };
 
         $scope.form = {
@@ -88,15 +89,15 @@
                     $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
                     $scope.originalCard.idList = angular.copy($scope.card.idList);
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.log(error);
 
                     var config = angular.extend({}, errorModalConfig, {
-                        contentScope: {
-                            title : "Too bad !",
+                        contentScope : {
+                            title   : "Too bad !",
                             message : "We are not able to load the required configuration. Please try again later."
                         }
-                    })
+                    });
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 });
@@ -118,17 +119,23 @@
             ApiCards
                 .postCard(args)
                 .then(function (card) {
+                    var config = angular.extend({}, cardCreatedConfig, {
+                        contentScope : {
+                            url : card.shortUrl
+                        }
+                    });
+                    $scope.createdCardModal = new ModalFactory(config);
                     $scope.createdCardModal.activate();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error(error);
 
                     var config = angular.extend({}, errorModalConfig, {
-                        contentScope: {
-                            title : "Ho no, we have not been able to create the card :(",
+                        contentScope : {
+                            title   : "Ho no, we have not been able to create the card :(",
                             message : "The error has been logged in the JS console of your browser"
                         }
-                    })
+                    });
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 })
@@ -150,7 +157,7 @@
         }
 
         function createFromScratch() {
-             $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
+            $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
 
             $scope.createdCardModal.deactivate();
         }

@@ -1,5 +1,6 @@
 {
     "dev": {
+        "production" : false,
         "board": "AkkrooTrello",
         "feature" : {
             "list": "Todo",
@@ -15,6 +16,7 @@
         }
     },
     "production": {
+        "production" : true,
         "board": "Development",
         "feature" : {
             "list": "Suggestions",

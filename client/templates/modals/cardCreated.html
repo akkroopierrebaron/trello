@@ -1,4 +1,5 @@
 <h4>Congrats, your card have been created !</h4>
+<p ng-if="url">Jump to the card in Trello : <a href="{{url}}">{{url}}</a></p>
 <p>Do you want to create a new card ?</p>
 <a class="primary button" ng-click="createFromExisting()">Yes, with the same config</a>
 <a class="secondary button" ng-click="createFromScratch()">Yes, from scratch</a>
