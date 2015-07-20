@@ -3,13 +3,15 @@
   "version": "1.1.0",
   "scripts": {
     "start": "gulp build",
-    "postinstall": "bower install && gulp build"
+    "postinstall": "bower install && gulp build --production"
   },
   "dependencies": {
     "bower": "^1.4.1",
     "express": "^4.12.2",
     "gzippo": "^0.2.0",
-    "morgan": "^1.5.1",
+    "morgan": "^1.5.1"
+  },
+  "devDependencies": {
     "front-router": "^1.0.0",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "^1.0.1",
@@ -25,8 +27,6 @@
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.2",
     "yargs": "^3.6.0"
-  },
-  "devDependencies": {
   },
   "private": true
 }
