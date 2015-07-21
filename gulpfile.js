@@ -14,8 +14,6 @@ var rimraf = require('rimraf');
 var router = require('front-router');
 var sequence = require('run-sequence');
 var ngConstant = require('gulp-ng-constant');
-var gutil = require('gulp-util');
-
 // Check for --production flag
 var isProduction = !!(argv.production);
 
@@ -34,8 +32,8 @@ var paths = {
         'bower_components/foundation-apps/scss',
     ],
     vendorCSS    : [
-        'bower_components/angular-ui-select/dist/select.min.css',
-        'bower_components/ladda/dist/ladda.min.css'
+        'bower_components/angular-ui-select/dist/select.css',
+        'bower_components/ladda/dist/ladda.css'
     ],
     // These files include Foundation for Apps and its dependencies
     foundationJS : [
@@ -167,7 +165,7 @@ gulp.task('uglify:vendorsCss', function (cb) {
         }));
 
     return gulp.src(paths.vendorCSS)
-        .pipe(uglify)
+        //.pipe(uglify)
         .pipe($.concat('vendors.css'))
         .pipe(gulp.dest('./build/assets/css/'));
 });
@@ -199,10 +197,8 @@ gulp.task('uglify:app', function () {
 
 gulp.task('config', function () {
     var myConfig = require('./constants.json');
-    var env = 'production';
-    if (gutil.env.dev === true) {
-        env = 'dev';
-    }
+    var env = isProduction ? 'production' : 'dev';
+
     var envConfig = myConfig[env];
     return ngConstant({
         name      : 'config',
