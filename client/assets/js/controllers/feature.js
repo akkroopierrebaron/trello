@@ -60,8 +60,6 @@
         $scope.submitCard = submitCard;
 
         function activate() {
-            $scope.createdCardModal = new ModalFactory(cardCreatedConfig);
-
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
             var getList = ApiLists.getList(ENV.feature.list);
@@ -92,12 +90,9 @@
                 .catch(function (error) {
                     console.log(error);
 
-                    var config = angular.extend({}, errorModalConfig, {
-                        contentScope : {
-                            title   : "Too bad !",
-                            message : "We are not able to load the required configuration. Please try again later."
-                        }
-                    });
+                    var config = angular.copy(errorModalConfig);
+                    config.contentScope.title = "Too bad !";
+                    config.contentScope.message = "We are not able to load the required configuration. Please try again later.";
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 });
@@ -119,23 +114,19 @@
             ApiCards
                 .postCard(args)
                 .then(function (card) {
-                    var config = angular.extend({}, cardCreatedConfig, {
-                        contentScope : {
-                            url : card.shortUrl
-                        }
-                    });
+                    var config = angular.copy(cardCreatedConfig);
+                    config.contentScope.url = card.shortUrl;
+
+                    console.log(angular.copy(config));
                     $scope.createdCardModal = new ModalFactory(config);
                     $scope.createdCardModal.activate();
                 })
                 .catch(function (error) {
                     console.error(error);
 
-                    var config = angular.extend({}, errorModalConfig, {
-                        contentScope : {
-                            title   : "Ho no, we have not been able to create the card :(",
-                            message : "The error has been logged in the JS console of your browser"
-                        }
-                    });
+                    var config = angular.copy(errorModalConfig);
+                    config.contentScope.title = "Ho no, we have not been able to create the card :(";
+                    config.contentScope.message = "The error has been logged in the JS console of your browser";
                     $scope.errorModal = new ModalFactory(config);
                     $scope.errorModal.activate();
                 })
@@ -145,7 +136,8 @@
         }
 
         function createFromExisting() {
-            $scope.card = angular.extend({}, $scope.card, {
+            console.log("coucou");
+            $scope.card = Object.merge($scope.card, {
                 name        : "",
                 who         : "",
                 what        : "",
@@ -157,7 +149,7 @@
         }
 
         function createFromScratch() {
-            $scope.card = angular.extend({}, $scope.card, $scope.originalCard);
+            $scope.card = Object.merge($scope.card, $scope.originalCard);
 
             $scope.createdCardModal.deactivate();
         }
