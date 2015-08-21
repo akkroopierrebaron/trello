@@ -33,7 +33,7 @@ var paths = {
     ],
     vendorCSS    : [
         'bower_components/angular-ui-select/dist/select.css',
-        'bower_components/ladda/dist/ladda.css'
+        'bower_components/ladda/dist/ladda-themeless.min.css'
     ],
     // These files include Foundation for Apps and its dependencies
     foundationJS : [

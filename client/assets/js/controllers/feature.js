@@ -48,44 +48,44 @@
             why         : "",
             information : "",
             idLabels    : [],
-            idMembers   : []
+            idMembers : [],
+            idList    : ""
         };
 
         $scope.submitLoading = false;
-
         $scope.originalCard = angular.copy($scope.card);
 
         activate();
-
         $scope.submitCard = submitCard;
 
         function activate() {
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getList = ApiLists.getList(ENV.feature.list);
+            var getAllLists = ApiLists.getAllLists(ENV.feature.list);
 
-            $q.all([getAllLabelsPromise, getAllMembers, getList])
+            $q.all([getAllLabelsPromise, getAllMembers, getAllLists])
                 .then(function (results) {
                     var labels = results[0];
                     var members = results[1];
-                    var list = results[2];
+                    var lists = results[2];
 
                     $scope.form.labels = labels.filter(function (label) {
                         return label.name;
                     });
+                    $scope.form.members = members;
+                    $scope.form.lists = lists;
 
                     var preselectedLabels = ENV.feature.labels;
                     $scope.card.idLabels = labels
-                        .filter(function (label) {
-                            return preselectedLabels.find(label.name) !== undefined;
-                        })
+                        .filter(function (label) { return preselectedLabels.find(label.name) !== undefined; })
                         .map(function (label) { return label.id; });
 
-                    $scope.form.members = members;
-                    $scope.card.idList = list.id;
+                    var list = lists.find(function (list) { return list.name === ENV.feature.list; });
+                    $scope.card.idList = list !== undefined ? list.id : "";
 
-                    $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
-                    $scope.originalCard.idList = angular.copy($scope.card.idList);
+                    console.log(angular.copy($scope.card));
+
+                    $scope.originalCard = angular.copy($scope.card);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -117,7 +117,6 @@
                     var config = angular.copy(cardCreatedConfig);
                     config.contentScope.url = card.shortUrl;
 
-                    console.log(angular.copy(config));
                     $scope.createdCardModal = new ModalFactory(config);
                     $scope.createdCardModal.activate();
                 })
@@ -136,7 +135,6 @@
         }
 
         function createFromExisting() {
-            console.log("coucou");
             $scope.card = Object.merge($scope.card, {
                 name        : "",
                 who         : "",
