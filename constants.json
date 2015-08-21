@@ -9,10 +9,6 @@
         "bug" : {
             "list": "Known issues",
             "labels" : ["Bug", "Reproduced"]
-        },
-        "bugReactApp" : {
-            "list": "Known issues",
-            "labels" : ["Bug", "Reproduced"]
         }
     },
     "production": {
@@ -24,10 +20,6 @@
         },
         "bug" : {
             "list": "Known issues",
-            "labels" : ["Issue", "Reproduced"]
-        },
-        "bugReactApp" : {
-            "list": "Akkroo++ testing iOS App",
             "labels" : ["Issue", "Reproduced"]
         }
     }
