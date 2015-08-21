@@ -48,8 +48,8 @@
             why         : "",
             information : "",
             idLabels    : [],
-            idMembers : [],
-            idList    : ""
+            idMembers   : [],
+            idList      : ""
         };
 
         $scope.submitLoading = false;
@@ -61,7 +61,7 @@
         function activate() {
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getAllLists = ApiLists.getAllLists(ENV.feature.list);
+            var getAllLists = ApiLists.getAllLists();
 
             $q.all([getAllLabelsPromise, getAllMembers, getAllLists])
                 .then(function (results) {
@@ -69,9 +69,7 @@
                     var members = results[1];
                     var lists = results[2];
 
-                    $scope.form.labels = labels.filter(function (label) {
-                        return label.name;
-                    });
+                    $scope.form.labels = labels.filter(function (label) { return label.name; });
                     $scope.form.members = members;
                     $scope.form.lists = lists;
 
@@ -82,8 +80,6 @@
 
                     var list = lists.find(function (list) { return list.name === ENV.feature.list; });
                     $scope.card.idList = list !== undefined ? list.id : "";
-
-                    console.log(angular.copy($scope.card));
 
                     $scope.originalCard = angular.copy($scope.card);
                 })

@@ -49,10 +49,11 @@
             result    : "",
             expected  : "",
             idLabels  : [],
-            idMembers : []
+            idMembers : [],
+            idList      : ""
         };
-        $scope.submitLoading = false;
 
+        $scope.submitLoading = false;
         $scope.originalCard = angular.copy($scope.card);
 
         activate();
@@ -62,30 +63,29 @@
         function activate() {
             var getAllLabelsPromise = ApiLabels.getAllLabels();
             var getAllMembers = ApiMembers.getAllMembers();
-            var getList = ApiLists.getList(ENV.bugReactApp.list);
+            var getAllLists = ApiLists.getAllLists();
 
-            $q.all([getAllLabelsPromise, getAllMembers, getList])
+            $q.all([getAllLabelsPromise, getAllMembers, getAllLists])
                 .then(function (results) {
                     var labels = results[0];
                     var members = results[1];
-                    var list = results[2];
+                    var lists = results[2];
 
-                    $scope.form.labels = labels.filter(function (label) {
-                        return label.name;
-                    });
+                    $scope.form.labels = labels.filter(function (label) { return label.name; });
+                    $scope.form.members = members;
+                    $scope.form.lists = lists;
+
                     var preselectedLabels = ENV.bugReactApp.labels;
-
                     $scope.card.idLabels = labels
                         .filter(function (label) {
                             return preselectedLabels.find(label.name) !== undefined;
                         })
                         .map(function (label) { return label.id; });
 
-                    $scope.form.members = members;
-                    $scope.card.idList = list.id;
+                    var list = lists.find(function (list) { return list.name === ENV.bugReactApp.list; });
+                    $scope.card.idList = list !== undefined ? list.id : "";
 
-                    $scope.originalCard.idLabels = angular.copy($scope.card.idLabels);
-                    $scope.originalCard.idList = angular.copy($scope.card.idList);
+                    $scope.originalCard = angular.copy($scope.card);
                 })
                 .catch(function (error) {
                     console.error(error);

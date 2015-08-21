@@ -95,6 +95,23 @@ controller: BugCtrl
             </label>
 
             <label>
+                List
+                 <div class="grid-block">
+                    <div class="small-9 grid-content">
+                        <ui-select ng-model="card.idList" theme="select2">
+                            <ui-select-match placeholder="Select list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="list.id as list in form.lists | filter: $select.search">
+                                <div ng-bind-html="list.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="small-3 grid-content">
+                        <p class="help-text">Choose your list</p>
+                    </div>
+                </div>
+            </label>
+
+            <label>
                 Labels
                 <div class="grid-block">
                     <div class="small-9 grid-content">
@@ -135,7 +152,7 @@ controller: BugCtrl
                     ladda="submitLoading"
                     ng-disabled="!cardForm.$valid || submitLoading"
                     ng-click="submitCard(card)"
-                    data-style="expand-left">
+                    data-style="expand-right">
                 Submit
             </button>
         </form>
